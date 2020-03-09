@@ -78,7 +78,10 @@ export class Icon {
   */
   @Prop({ reflect: true }) theme: IconTheme = 'outline';
 
-  connectedCallback(): void {
+  async connectedCallback(): Promise<any> {
+    console.log('teste carai 1')
+    const teste = await import('./svg/outline/user.svg');
+    console.log('teste carai 2', teste)
     // purposely do not return the promise here because loading
     // the svg file should not hold up loading the app
     // only load the svg if it's visible

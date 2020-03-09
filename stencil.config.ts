@@ -20,6 +20,7 @@ export const config: Config = {
       empty: false
     },
   ],
+  globalScript: 'src/globals/scripts/index.ts',
   excludeSrc: ['/test/', '**/.spec.', '**/.stories.'],
   plugins: [
     sass({

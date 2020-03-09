@@ -17,10 +17,7 @@
   "scripts": {
     "generate": "stencil generate",
     "commit": "./node_modules/.bin/git-cz",
-    "build": "npm run eslint && npm run test && tsc -p scripts/tsconfig.json && npm run build:files && npm run build:component && npm run collection:copy",
-    "build:files": "node scripts/build.js",
-    "build:component": "stencil build --docs",
-    "collection:copy": "node scripts/collection-copy.js",
+    "build": "npm run eslint && npm run test && stencil build --docs",
     "start": "stencil build --dev --watch --serve --docs",
     "test": "stencil test --spec",
     "test:e2e": "stencil test --e2e",
@@ -35,7 +32,8 @@
     "storybook:build": "build-storybook && cp -r www/build/ storybook-static/build/",
     "storybook:deploy": "npm run storybook:build && storybook-to-ghpages -e storybook-static",
     "eslint": "eslint . --ext .jsx,.ts,.tsx",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "build:teste": "webpack --config modules/webpack.config.js --mode=development"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
@@ -53,6 +51,7 @@
     "@types/jest": "24.0.24",
     "@types/puppeteer": "1.19.0",
     "@types/uuid": "^3.4.7",
+    "@types/webpack": "^4.41.7",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "babel-loader": "^8.0.6",
@@ -65,6 +64,7 @@
     "eslint-config-standard-with-typescript": "^11.0.1",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-react": "^7.17.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "fs-extra": "^8.1.0",
     "ghooks": "^2.0.4",
     "jest": "24.9.0",
@@ -72,10 +72,16 @@
     "npm-run-all": "^4.1.5",
     "puppeteer": "1.19.0",
     "semantic-release": "^16.0.2",
+    "simplify-string": "^1.0.3",
+    "svg-inline-loader": "^0.8.2",
+    "ts-loader": "^6.2.1",
     "tslint-react": "^4.2.0",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
     "workbox-build": "^4.3.1"
   },
   "dependencies": {
+    "declaration-bundler-webpack-plugin": "^1.0.3",
     "uuid": "^3.4.0"
   },
   "repository": {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { getAssetPath } from '@stencil/core';
+// import { getAssetPath } from '@stencil/core';
 import { Icon } from './icon';
 
 let CACHED_MAP: Map<string, string>;
@@ -61,11 +61,12 @@ export const getIconMap = (): Map<string, string> => {
 };
 
 const getNamedUrl = (iconName: string, variant: string): string => {
-  const url = getIconMap().get(iconName);
-  if (url) {
-    return url;
-  }
-  return getAssetPath(`svg/${variant}/${iconName}.svg`);
+  // const url = getIconMap().get(iconName);
+  // if (url) {
+  //   return url;
+  // }
+  console.log('vai carai')
+  return require(`./svg/${variant}/${iconName}.svg`);
 };
 
 const clearPathsAndFillColor = (svg: Element, color: string): void => {

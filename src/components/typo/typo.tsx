@@ -26,7 +26,7 @@ export type Tag = 'p'
   | 'h3'
   | 'h4'
   | 'span';
-  
+
 @Component({
   tag: 'bds-typo',
   styleUrl: 'typo.scss',
