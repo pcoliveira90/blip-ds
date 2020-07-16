@@ -1,4 +1,4 @@
-import { Component, Prop, h, Host } from '@stencil/core';
+import { Component, Prop, h, Host, Event, EventEmitter, Watch } from '@stencil/core';
 import { InputAutocapitalize, InputAutoComplete } from '../input/input-interface';
 
 @Component({
@@ -89,6 +89,65 @@ export class InputPassword {
    */
   @Prop() placeholder?: string = '';
 
+  @Watch('value')
+  protected valueChanged(): void {
+    this.bdsChange.emit({ value: this.value });
+  }
+
+  /**
+   * Emitted when the value has changed.
+   */
+  @Event() bdsChange!: EventEmitter;
+
+  /**
+   * Emitted when the input has changed.
+   */
+  @Event() bdsInput!: EventEmitter<KeyboardEvent>;
+
+  /**
+   * Event input onblur.
+   */
+  @Event() bdsOnBlur: EventEmitter;
+
+  /**
+   * Event input focus.
+   */
+  @Event() bdsFocus: EventEmitter;
+
+  /**
+   * Event input enter.
+   */
+  @Event() bdsSubmit: EventEmitter;
+
+  /**
+   * Event input key down backspace.
+   */
+  @Event() bdsKeyDownBackspace: EventEmitter;
+
+  private handleChange(event: CustomEvent): void {
+    this.bdsChange.emit(event.detail);
+  }
+
+  private handleInput(event: CustomEvent<KeyboardEvent>): void {
+    this.bdsInput.emit(event.detail);
+  }
+
+  private handleOnBlur(event: CustomEvent): void {
+    this.bdsOnBlur.emit(event.detail);
+  }
+
+  private handleFocus(event: CustomEvent): void {
+    this.bdsFocus.emit(event.detail);
+  }
+
+  private handleSubmit(event: CustomEvent): void {
+    this.bdsSubmit.emit(event.detail);
+  }
+
+  private handleKeyDownBackspace(event: CustomEvent): void {
+    this.bdsKeyDownBackspace.emit(event.detail);
+  }
+
   private toggleEyePassword = (): void => {
     if (!this.disabled) {
       this.openEyes = !this.openEyes;
@@ -125,6 +184,12 @@ export class InputPassword {
           auto-complete={autocomplete}
           auto-capitalize={this.autoCapitalize}
           placeholder={this.placeholder}
+          onBdsChange={(event) => this.handleChange(event)}
+          onBdsInput={(event) => this.handleInput(event)}
+          onBdsOnBlur={(event) => this.handleOnBlur(event)}
+          onBdsFocus={(event) => this.handleFocus(event)}
+          onBdsSubmit={(event) => this.handleSubmit(event)}
+          onBdsKeyDownBackspace={(event) => this.handleKeyDownBackspace(event)}
         >
           <div slot="input-right" class="input__password--icon" onClick={this.toggleEyePassword}>
             <bds-icon size="small" name={iconPassword} color="inherit"></bds-icon>
