@@ -4,7 +4,7 @@ import { Option, SelectChangeEventDetail } from '../select-interface';
 @Component({
   tag: 'bds-select',
   styleUrl: '../select.scss',
-  shadow: true,
+  scoped: true,
 })
 export class Select {
   private nativeInput?: HTMLBdsInputElement;
